@@ -11,12 +11,13 @@ import java.util.LinkedList;
  * Clase Buzon, en este caso la clase buzon actua como buffer, es el encargado de "Producir" y "Consumir" los mensajes 
  */
 public class Buzon {
-
+    //Almacena los mensajes del buzon
     LinkedList<Mensaje> list = new LinkedList<Mensaje>(); 
 
+    //Capacidad maxima de cada buzon 
     private int capacity; 
 
-
+    //
     public Buzon(int pCapacity){
          this.capacity = pCapacity; 
     }

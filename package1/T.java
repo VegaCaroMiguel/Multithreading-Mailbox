@@ -16,6 +16,10 @@ public class T extends Thread{
     /////                                                 ATRIBUTES                                                             /////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
+    //Id del thread
+    private String id; 
+
+
 
     //Int value which represents the delay in millis of the thread 
     private int delay; 
@@ -47,12 +51,35 @@ public class T extends Thread{
      * @param pLeft
      * @param pRight
      */
-    public T(int pDelay, Buzon pLeft, Buzon pRight){
+    public T(String pId, int pDelay, boolean pReceive, boolean pSend, Buzon pLeft, Buzon pRight){
+
+        this.id = pId; 
+
         this.delay = pDelay;
 
         this.left = pLeft;
 
         this.right = pRight;
+
+        this.receive = pReceive; 
+
+        this.send = pSend;
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////                                                    METHODS                                                            /////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void firmar(Mensaje pMensaje){
+
+        String rec = (receive == true) ? "Active" : "Passive"; 
+
+        String se = (send == true) ? "Active" : "Passive"; 
+
+        String firma = "ID: " + id + " , " + "RECEIVED: " + rec + " , " + "SENT: " + se;
+        
+        pMensaje.firmar(firma);
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
