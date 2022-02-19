@@ -1,6 +1,15 @@
+/**
+ * Caso 1 Infraestructura Computacional "Mailbox"
+ * 
+ * @author Juan Miguel Vega Caro 201715344
+ * @author  
+ */
 import java.util.ArrayList;
 import java.util.LinkedList; 
 
+/**
+ * Clase Buzon, en este caso la clase buzon actua como buffer, es el encargado de "Producir" y "Consumir" los mensajes 
+ */
 public class Buzon {
 
     LinkedList<Mensaje> list = new LinkedList<Mensaje>(); 
