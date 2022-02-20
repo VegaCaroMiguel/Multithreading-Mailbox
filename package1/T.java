@@ -19,22 +19,20 @@ public class T extends Thread{
     //Id del thread
     private String id; 
 
-
-
     //Int value which represents the delay in millis of the thread 
     private int delay; 
 
     //Buzon object that represents the left mailbox of the thread
-    private Buzon left;
+    private Buzon leftBuffer;
     
     //Buzon object that represents the left mailbox of the thread
-    private Buzon right;
+    private Buzon rightBuffer;
 
     //Boolean var that represents the type of receive operation 
-    private boolean receive;
+    private boolean receiveWay;
 
     //Boolean var thar represents the type of send operation
-    private boolean send; 
+    private boolean sendWay; 
 
     
 
@@ -45,25 +43,30 @@ public class T extends Thread{
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////                                                 CONSTRUCTOR                                                           /////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Instanciate a new thread
+     * 
+     * @param pId
      * @param pDelay
-     * @param pLeft
-     * @param pRight
+     * @param pLeftBuffer
+     * @param pRightBuffer
+     * @param pReceiveWay
+     * @param pSendWay
      */
-    public T(String pId, int pDelay, boolean pReceive, boolean pSend, Buzon pLeft, Buzon pRight){
+    public T(String pId, int pDelay, Buzon pLeftBuffer, Buzon pRightBuffer, boolean pReceiveWay, boolean pSendWay ){
 
         this.id = pId; 
 
         this.delay = pDelay;
 
-        this.left = pLeft;
+        this.leftBuffer = pLeftBuffer;
 
-        this.right = pRight;
+        this.rightBuffer = pRightBuffer;
 
-        this.receive = pReceive; 
+        this.receiveWay = pReceiveWay; 
 
-        this.send = pSend;
+        this.sendWay = pSendWay;
 
     }
 
