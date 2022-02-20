@@ -74,20 +74,34 @@ public class Buzon {
         while(true){
 
             while(buzz.size()!= 0){
-                return buzz.get(buzz.size()-1);
+                Mensaje aux = buzz.get(0);
+                buzz.remove(0);
+                return aux; 
             }
         }
-        
     }
 
 
-    public synchronized void extraerPasivo(Mensaje pMensaje){
+    public synchronized Mensaje extraerPasivo(Mensaje pMensaje){
+        if(buzz.size()==0){
+            try{
+                wait();
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+
+        Mensaje aux = buzz.get(0);
+        buzz.remove(0); 
+
+        if(buzz.size() == capacity-1){
+            notify();
+        }
+
+        return aux; 
 
     }
 
-
-    public boolean hayMensajes(){
-        return list.size() > 0 ;
-    }
     
 }
