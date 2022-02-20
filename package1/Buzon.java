@@ -5,7 +5,7 @@
  * @author  
  */
 import java.util.ArrayList;
-import java.util.LinkedList; 
+import java.lang.InterruptedException;
 
 /**
  * Clase Buzon, en este caso la clase buzon actua como buffer, es el encargado de "Producir" y "Consumir" los mensajes 
@@ -18,7 +18,8 @@ public class Buzon {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     //List that stores the buffer messages
-    LinkedList<Mensaje> list = new LinkedList<Mensaje>(); 
+    ArrayList<Mensaje> buzz = new ArrayList<Mensaje>();
+
 
     //Capacity of each buffer 
     private int capacity; 
@@ -41,21 +42,46 @@ public class Buzon {
 
 
     
-    public synchronized void producirActivo(Mensaje pMensaje){
+    public synchronized void insertarActivo(Mensaje pMensaje){
+        while(true){
+
+            while(buzz.size() != capacity){
+                buzz.add(pMensaje);
+            }
+
+        }
+    }
+
+    public synchronized void insertarPasivo(Mensaje pMensaje){
+        if(buzz.size() == capacity){
+            try{
+                wait();
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+
+        buzz.add(pMensaje);
+
+        if(buzz.size() == 1){
+            notify();
+        }
+    }
+
+
+    public synchronized Mensaje extraerActivo(Mensaje pMensaje){
+        while(true){
+
+            while(buzz.size()!= 0){
+                return buzz.get(buzz.size()-1);
+            }
+        }
         
     }
 
-    public synchronized void producirPasivo(Mensaje pMensaje){
 
-    }
-
-
-    public synchronized void consumirActivo(Mensaje pMensaje){
-
-    }
-
-
-    public synchronized void consumirPasivo(Mensaje pMensaje){
+    public synchronized void extraerPasivo(Mensaje pMensaje){
 
     }
 
