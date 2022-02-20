@@ -4,8 +4,8 @@
  * @author Juan Miguel Vega Caro 201715344
  * @author  
  */
+
 import java.util.ArrayList;
-import java.util.LinkedList; 
 
 /**
  * Clase Thread
@@ -80,9 +80,9 @@ public class T extends Thread{
      */
     public void firmar(Mensaje pMensaje){
 
-        String rec = (receive == true) ? "Active" : "Passive"; 
+        String rec = (receiveWay == true) ? "Active" : "Passive"; 
 
-        String se = (send == true) ? "Active" : "Passive"; 
+        String se = (sendWay == true) ? "Active" : "Passive"; 
 
         String firma = "ID: " + id + " , " + "RECEIVED: " + rec + " , " + "SENT: " + se;
         
@@ -101,9 +101,9 @@ public class T extends Thread{
     /////                                                      RUN                                                              /////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void run(){
-        while(true){
 
-        }
+        
+
     }
 
 }

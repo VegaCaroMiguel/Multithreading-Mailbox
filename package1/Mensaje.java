@@ -11,17 +11,34 @@ import java.util.LinkedList;
  * Clase mensaje, contiene las firmas de los buzones.
  */
 public class Mensaje {
+
+    /**
+     * String with the message content 
+     */
     private String mensaje; 
 
+
+    /**
+     * Returns the message content 
+     * @return mensaje
+     */
     public String darMensaje(){
         return mensaje;
     }
 
+    /**
+     * Updates the message content 
+     * @param pMensaje
+     */
     public void firmar(String pMensaje){
         this.mensaje = pMensaje;
     }
 
+    /**
+     * Constructor of the message class 
+     * @param pMensaje
+     */
     public Mensaje(String pMensaje){
-
+        this.mensaje = pMensaje; 
     }
 }
