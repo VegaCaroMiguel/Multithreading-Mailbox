@@ -1,5 +1,16 @@
+/**
+ * Caso 1 Infraestructura Computacional "Mailbox"
+ * 
+ * @author Juan Miguel Vega Caro 201715344
+ * @author  
+ */
 import java.util.Scanner; 
 import java.util.ArrayList;
+
+/**
+ * Clase principal del Mailbox 
+ */
+
 public class Principal{
 
 
@@ -7,7 +18,7 @@ public class Principal{
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Hola, bienvenido al caso 1 de Infraestructura computacional");
-        System.out.println("Por favor digita el numero de mensajes a producir");
+        System.out.println("Por favor digita el numero de mensajes que deseas transmitir");
 
         int noMensajes = scan.nextInt();
 

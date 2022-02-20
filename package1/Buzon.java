@@ -41,19 +41,30 @@ public class Buzon {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    
+    /**
+     * Busy wait message insertion 
+     * @param pMensaje
+     */
     public synchronized void insertarActivo(Mensaje pMensaje){
         while(true){
 
-            while(buzz.size() != capacity){
+            while(buzz.size() != capacity){ //Checks if the buffer its full, and if it's not, inserts a message
                 buzz.add(pMensaje);
             }
 
+            if(buzz.size() ==1){ //Notify the waiting Consumers that there are resources available 
+                notify();
+            }
         }
     }
 
+    /**
+     * Passive wait message Insertion 
+     * @param pMensaje
+     */
     public synchronized void insertarPasivo(Mensaje pMensaje){
-        if(buzz.size() == capacity){
+
+        if(buzz.size() == capacity){ //Checks if the buffer its full, and if it is full, sends the thread to sleep 
             try{
                 wait();
             }
@@ -62,30 +73,43 @@ public class Buzon {
             }
         }
 
-        buzz.add(pMensaje);
+        buzz.add(pMensaje); // If there is space available in the buffer the message is added 
 
-        if(buzz.size() == 1){
+        if(buzz.size() == 1){ // Notify the waiter consumers that there are resources available  
             notify();
         }
     }
 
-
+    /**
+     * Busy wait message extraction 
+     * @param pMensaje
+     * @return The extrected message 
+     */
     public synchronized Mensaje extraerActivo(Mensaje pMensaje){
         while(true){
 
-            while(buzz.size()!= 0){
+            while(buzz.size()!= 0){ // If there are resoures available, extract's the message 
                 Mensaje aux = buzz.get(0);
                 buzz.remove(0);
+
+                if(buzz.size() == capacity-1){ 
+                    notify(); // If the buffer isn't full anymore, notify the waiting producers 
+                }
+
                 return aux; 
             }
         }
     }
 
-
+    /**
+     * Passive wait extraction
+     * @param pMensaje
+     * @return The extracted message 
+     */
     public synchronized Mensaje extraerPasivo(Mensaje pMensaje){
-        if(buzz.size()==0){
+        if(buzz.size()==0){ //Check if the buffer is empty 
             try{
-                wait();
+                wait(); // If the buffer is empty, go to sleep 
             }
             catch(InterruptedException e){
                 e.printStackTrace();
@@ -93,15 +117,14 @@ public class Buzon {
         }
 
         Mensaje aux = buzz.get(0);
-        buzz.remove(0); 
+        buzz.remove(0);  //If the bufer isnt empty, extract the message 
 
-        if(buzz.size() == capacity-1){
-            notify();
+        if(buzz.size() == capacity-1){ //Check if the buffer was full 
+            notify(); //If the buffer was full, notify the waiting consumers 
         }
 
         return aux; 
 
     }
-
-    
+   
 }
