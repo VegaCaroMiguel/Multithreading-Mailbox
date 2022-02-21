@@ -31,14 +31,7 @@ public class Mensaje {
      * @param pMensaje
      */
     public void firmar(String pMensaje){
-        this.mensaje = pMensaje;
+        this.mensaje += pMensaje + "\n";
     }
 
-    /**
-     * Constructor of the message class 
-     * @param pMensaje
-     */
-    public Mensaje(String pMensaje){
-        this.mensaje = pMensaje; 
-    }
 }
