@@ -117,15 +117,17 @@ public class T extends Thread{
                     rightBuffer.insertarActivo(current);
                    
                 }
-
                 else{
                     rightBuffer.insertarPasivo(current);
                    
                 }
+
                 if(isLast){break;}
             }
             else{
                 current = leftBuffer.extraerPasivo();
+                isLast = (current.equals("FIN")) ? true : false; 
+
 
                 if(insertWay){
                     rightBuffer.insertarActivo(current);
@@ -133,14 +135,11 @@ public class T extends Thread{
                 else{
                     rightBuffer.insertarPasivo(current);
                 }
+
+                if(isLast){break;}
             }
-
         }
-
     }
-
-
-
 
     }
 
