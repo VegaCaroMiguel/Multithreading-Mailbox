@@ -28,12 +28,14 @@ public class T extends Thread{
     //Buzon object that represents the left mailbox of the thread
     private Buzon rightBuffer;
 
-    //Boolean var that represents the type of receive operation 
-    private boolean receiveWay;
 
-    //Boolean var thar represents the type of send operation
-    private boolean sendWay; 
 
+    //Boolean var thar represents the type of extraction operation
+    private boolean extractWay; 
+
+    
+    //Boolean var that represents the type of insertion operation 
+    private boolean insertWay;
     
 
     //Special attribute for No.1 Threads, that specify the total ammount of messages the mailboxes will handle.
@@ -51,10 +53,10 @@ public class T extends Thread{
      * @param pDelay
      * @param pLeftBuffer
      * @param pRightBuffer
-     * @param pReceiveWay
-     * @param pSendWay
+     * @param pExtractWay
+     * @param pInsertWay
      */
-    public T(String pId, int pDelay, Buzon pLeftBuffer, Buzon pRightBuffer, boolean pReceiveWay, boolean pSendWay ){
+    public T(String pId, int pDelay, Buzon pLeftBuffer, Buzon pRightBuffer, boolean pExtractWay, boolean pInsertWay ){
 
         this.id = pId; 
 
@@ -64,9 +66,51 @@ public class T extends Thread{
 
         this.rightBuffer = pRightBuffer;
 
-        this.receiveWay = pReceiveWay; 
+        this.extractWay = pInsertWay; 
 
-        this.sendWay = pSendWay;
+        this.insertWay = pInsertWay;
+
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////                                                      RUN                                                              /////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void run(){
+
+        // Checks if the thread is the first one 
+        if(!load.isEmpty()){
+
+            for(int i = 0; i < load.size(); i ++){
+                if(insertWay){ // If the thread have activeInsert, activeInsert each message into the cycle 
+                    rightBuffer.insertarActivo(load.get(i));
+
+                    load.remove(i); //Removes the message from the load ArrayList
+                }
+                else{  //If the thread has passiveInsert, passiveInsert each message into the cycle
+                    rightBuffer.insertarPasivo(load.get(i));
+
+                    load.remove(i); //Removes the message from the load ArrayList
+                }
+                
+            }
+            Mensaje end = new Mensaje("FIN"); //Sends the last message who kills the existing threads 
+            if(insertWay){
+                rightBuffer.insertarActivo(end);
+            }
+            else{
+                rightBuffer.insertarPasivo(end);
+            }
+        }
+
+        //If the thread isn't the first one || The thread is the last one 
+        Mensaje current; 
+        while(true){
+            if(extractWay){
+                current = leftBuffer.extraerActivo();
+            }
+        }
+
 
     }
 
@@ -80,11 +124,11 @@ public class T extends Thread{
      */
     public void firmar(Mensaje pMensaje){
 
-        String rec = (receiveWay == true) ? "Active" : "Passive"; 
+        String rec = (extractWay == true) ? "Active" : "Passive"; 
 
-        String se = (sendWay == true) ? "Active" : "Passive"; 
+        String se = (insertWay == true) ? "Active" : "Passive"; 
 
-        String firma = "ID: " + id + " , " + "RECEIVED: " + rec + " , " + "SENT: " + se;
+        String firma = "ID: " + id + " , " + "Extracted: " + rec + " , " + "Inserted: " + se;
         
         pMensaje.firmar(firma);
 
@@ -97,13 +141,6 @@ public class T extends Thread{
     public void setLoad(ArrayList<Mensaje> pLoad){
         this.load = pLoad; 
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////                                                      RUN                                                              /////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void run(){
-        
 
-
-    }
 
 }

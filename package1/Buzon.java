@@ -85,7 +85,7 @@ public class Buzon {
      * @param pMensaje
      * @return The extrected message 
      */
-    public synchronized Mensaje extraerActivo(Mensaje pMensaje){
+    public synchronized Mensaje extraerActivo(){
         while(true){
 
             while(buzz.size()!= 0){ // If there are resoures available, extract's the message 
@@ -106,7 +106,7 @@ public class Buzon {
      * @param pMensaje
      * @return The extracted message 
      */
-    public synchronized Mensaje extraerPasivo(Mensaje pMensaje){
+    public synchronized Mensaje extraerPasivo(){
         if(buzz.size()==0){ //Check if the buffer is empty 
             try{
                 wait(); // If the buffer is empty, go to sleep 
@@ -120,7 +120,7 @@ public class Buzon {
         buzz.remove(0);  //If the bufer isnt empty, extract the message 
 
         if(buzz.size() == capacity-1){ //Check if the buffer was full 
-            notify(); //If the buffer was full, notify the waiting consumers 
+            notify(); //If the buffer was full, notify the waiting producer 
         }
 
         return aux; 
