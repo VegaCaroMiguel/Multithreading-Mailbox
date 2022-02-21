@@ -100,8 +100,12 @@ public class T extends Thread{
 
                     rightBuffer.insertarActivo(load.get(i));
 
-                    
-
+                    String msg = "Thread:  %d - escribio: %s - forma activa";
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg,this.id,load.get(i).darMensaje()));// thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");                    
 
                     load.remove(i); //Removes the message from the load ArrayList
                 }
@@ -111,13 +115,35 @@ public class T extends Thread{
 
                     rightBuffer.insertarPasivo(load.get(i));
 
+                    String msg = "Thread:  %d - escribio: %s - forma pasiva";
+                    System.out.println(""); 
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg,this.id,load.get(i).darMensaje())); // thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
+
+
                     load.remove(i); //Removes the message from the load ArrayList
                 }
                 
             }
+
+
+            
             Mensaje end = new Mensaje(); //Sends the last message who kills the existing threads 
 
             end.firmar("FIN");
+            System.out.println("Thread " + id + ":" +  " Escribió " + " " + "FIN" );
+
+            try {
+
+                sleep(delay); // thread performs the programmed delay
+                System.out.println("Thread " + id + ":" +  " delayed" + " " + delay );
+
+            } catch (InterruptedException e) {
+                // Handles exception
+                e.printStackTrace();
+            }
 
             if(insertWay){
                 rightBuffer.insertarActivo(end);
@@ -127,7 +153,7 @@ public class T extends Thread{
             }
         }
 
-        
+
                     //If the thread isn't the first one || The thread is the last one 
         Mensaje current; 
         boolean isLast = false; 
