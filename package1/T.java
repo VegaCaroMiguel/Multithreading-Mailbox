@@ -102,14 +102,44 @@ public class T extends Thread{
                 rightBuffer.insertarPasivo(end);
             }
         }
-
-        //If the thread isn't the first one || The thread is the last one 
+        else{
+                    //If the thread isn't the first one || The thread is the last one 
         Mensaje current; 
+        boolean isLast = false; 
+
         while(true){
+
             if(extractWay){
                 current = leftBuffer.extraerActivo();
+                isLast = (current.equals("FIN")) ? true : false; 
+
+                if(insertWay){
+                    rightBuffer.insertarActivo(current);
+                   
+                }
+
+                else{
+                    rightBuffer.insertarPasivo(current);
+                   
+                }
+                if(isLast){break;}
             }
+            else{
+                current = leftBuffer.extraerPasivo();
+
+                if(insertWay){
+                    rightBuffer.insertarActivo(current);
+                }
+                else{
+                    rightBuffer.insertarPasivo(current);
+                }
+            }
+
         }
+
+    }
+
+
 
 
     }
@@ -121,7 +151,7 @@ public class T extends Thread{
     /**
      * Cada thread firma los mensajes que va recibiendo 
      * @param pMensaje
-     */
+    */
     public void firmar(Mensaje pMensaje){
 
         String rec = (extractWay == true) ? "Active" : "Passive"; 
