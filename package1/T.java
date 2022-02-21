@@ -82,12 +82,26 @@ public class T extends Thread{
         if(!load.isEmpty()){
 
             for(int i = 0; i < load.size(); i ++){
+
+                try {
+
+					sleep(delay); // thread performs the programmed delay
+					System.out.println("Thread " + id + ":" +  " delayed" + " " + delay );
+
+				} catch (InterruptedException e) {
+					// Handles exception
+					e.printStackTrace();
+				}
+
                 if(insertWay){ // If the thread have activeInsert, activeInsert each message into the cycle 
 
                     //SIGNS The message 
                     sign(load.get(i));
 
                     rightBuffer.insertarActivo(load.get(i));
+
+                    
+
 
                     load.remove(i); //Removes the message from the load ArrayList
                 }
@@ -101,7 +115,10 @@ public class T extends Thread{
                 }
                 
             }
-            Mensaje end = new Mensaje("FIN"); //Sends the last message who kills the existing threads 
+            Mensaje end = new Mensaje(); //Sends the last message who kills the existing threads 
+
+            end.firmar("FIN");
+
             if(insertWay){
                 rightBuffer.insertarActivo(end);
             }
@@ -109,7 +126,8 @@ public class T extends Thread{
                 rightBuffer.insertarPasivo(end);
             }
         }
-        else{
+
+        
                     //If the thread isn't the first one || The thread is the last one 
         Mensaje current; 
         boolean isLast = false; 
@@ -154,7 +172,6 @@ public class T extends Thread{
                 if(isLast){break;}
             }
         }
-    }
 
     }
 
@@ -176,6 +193,22 @@ public class T extends Thread{
         
         pMensaje.firmar(firma);
 
+    }
+
+    /**
+     * Sets the leftBuffer of the thread
+     * @param pLeft
+     */
+    public void setLeft(Buzon pLeft){
+        this.leftBuffer = pLeft; 
+    }
+
+    /**
+     * Sets the rightBuffer of the thread
+     * @param pRight
+     */
+    public void setRight(Buzon pRight){
+        this.rightBuffer = pRight; 
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
