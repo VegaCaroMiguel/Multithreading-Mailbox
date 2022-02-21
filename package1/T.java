@@ -118,7 +118,7 @@ public class T extends Thread{
 
             if(extractWay){
                 current = leftBuffer.extraerActivo();
-                isLast = (current.equals("FIN")) ? true : false; 
+                isLast = (current.darMensaje().equals("FIN")) ? true : false; 
 
                 if(insertWay){
                     //SIGN the message 
@@ -137,7 +137,7 @@ public class T extends Thread{
             }
             else{
                 current = leftBuffer.extraerPasivo();
-                isLast = (current.equals("FIN")) ? true : false; 
+                isLast = (current.darMensaje().equals("FIN")) ? true : false; 
 
 
                 if(insertWay){
