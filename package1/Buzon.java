@@ -24,6 +24,9 @@ public class Buzon {
     //Capacity of each buffer 
     private int capacity; 
 
+    //id of the Buffer
+    private String id; 
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////                                                 CONSTRUCTOR                                                           /////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +35,9 @@ public class Buzon {
      * Construct the buffer 
      * @param pCapacity
      */
-    public Buzon(int pCapacity){
+    public Buzon(String pId,int pCapacity){
+        this.id = pId; 
+
          this.capacity = pCapacity; 
     }
 

@@ -20,18 +20,25 @@ public class Principal{
         //Create a the .config file 
         File file = new File("C:\\Users\\jm.vegac\\Multithreading-Mailbox\\Config\\Settings.txt");
 
-
         try{
 
             //Scanner who reads the file 
             Scanner scanFile = new Scanner(file);
+
+            for(int i = 0; i < 4; i ++){
+                String infoBuzon = scanFile.nextLine();
+                String id = infoBuzon.split("")[0];
+                int capacity = Integer.parseInt(infoBuzon.split(" ")[1]);
+                Buzon current = new Buzon(id, capacity);
+            }
+
+            for(int i = 0; i < 4; i ++){
+                
+            }
+
         }
         catch(Exception e ){
             e.printStackTrace();
-        }
-
-        for(int i = 0; i < 4; i ++){
-            
         }
     }
 
