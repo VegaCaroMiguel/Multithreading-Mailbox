@@ -5,7 +5,9 @@
  * @author  
  */
 import java.util.Scanner; 
+import java.io.File;
 import java.util.ArrayList;
+
 
 /**
  * Clase principal del Mailbox 
@@ -14,13 +16,37 @@ import java.util.ArrayList;
 public class Principal{
 
 
-    public static void main(String[] args){
-        Scanner scan = new Scanner(System.in);
+    static void readFile(ArrayList<Buzon> pBuzones, ArrayList<Mensaje> pMensajes){
+        //Create a the .config file 
+        File file = new File("C:\\Users\\jm.vegac\\Multithreading-Mailbox\\Config\\Settings.txt");
 
+
+        try{
+
+            //Scanner who reads the file 
+            Scanner scanFile = new Scanner(file);
+        }
+        catch(Exception e ){
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < 4; i ++){
+            
+        }
+    }
+
+
+    public static void main(String[] args){
+        
+        //Starts dialog 
         System.out.println("Hola, bienvenido al caso 1 de Infraestructura computacional");
         System.out.println("Por favor digita el numero de mensajes que deseas transmitir");
 
-        int noMensajes = scan.nextInt();
+        //Scan user input
+        Scanner scanUser = new Scanner(System.in);
+
+        //Reads the number of messages the program will handle
+        int noMensajes = scanUser.nextInt();
 
         ArrayList<Mensaje> ms = new ArrayList<Mensaje>();
 
