@@ -83,11 +83,18 @@ public class T extends Thread{
 
             for(int i = 0; i < load.size(); i ++){
                 if(insertWay){ // If the thread have activeInsert, activeInsert each message into the cycle 
+
+                    //SIGNS The message 
+                    sign(load.get(i));
+
                     rightBuffer.insertarActivo(load.get(i));
 
                     load.remove(i); //Removes the message from the load ArrayList
                 }
                 else{  //If the thread has passiveInsert, passiveInsert each message into the cycle
+                    //SIGNS The message 
+                    sign(load.get(i));
+
                     rightBuffer.insertarPasivo(load.get(i));
 
                     load.remove(i); //Removes the message from the load ArrayList
@@ -114,10 +121,14 @@ public class T extends Thread{
                 isLast = (current.equals("FIN")) ? true : false; 
 
                 if(insertWay){
+                    //SIGN the message 
+                    sign(current);
                     rightBuffer.insertarActivo(current);
                    
                 }
                 else{
+                    //SIGN the message 
+                    sign(current);
                     rightBuffer.insertarPasivo(current);
                    
                 }
@@ -130,9 +141,13 @@ public class T extends Thread{
 
 
                 if(insertWay){
+                    //SIGN the message 
+                    sign(current);
                     rightBuffer.insertarActivo(current);
                 }
                 else{
+                    //SIGN the message 
+                    sign(current);
                     rightBuffer.insertarPasivo(current);
                 }
 
@@ -151,7 +166,7 @@ public class T extends Thread{
      * Cada thread firma los mensajes que va recibiendo 
      * @param pMensaje
     */
-    public void firmar(Mensaje pMensaje){
+    public void sign(Mensaje pMensaje){
 
         String rec = (extractWay == true) ? "Active" : "Passive"; 
 
