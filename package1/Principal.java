@@ -46,8 +46,9 @@ public class Principal{
 
                 boolean extractWay = Boolean.parseBoolean(infoThread.split(" ")[2]); 
 
+
                 boolean insertWay = Boolean.parseBoolean(infoThread.split(" ")[3]); 
-                
+
                 //Initializes threads with rightBuffers 
                 T thread = new T(id, delay, null, null, extractWay, insertWay); 
                 
@@ -111,8 +112,12 @@ public class Principal{
 
         readFile(buzones, threads); 
 
+        
+
         //Sets the first thread with the load 
         threads.get(0).setLoad(ms);
+
+
 
         //Creates the threads and start running them 
         for(int i = 0; i < threads.size(); i ++){ 

@@ -15,7 +15,7 @@ public class Mensaje {
     /**
      * String with the message content 
      */
-    private String mensaje; 
+    private String mensaje = ""; 
 
 
     /**
@@ -31,7 +31,7 @@ public class Mensaje {
      * @param pMensaje
      */
     public void firmar(String pMensaje){
-        this.mensaje += pMensaje + "\n";
+        this.mensaje += (pMensaje + "\n"); 
     }
 
 }
