@@ -81,6 +81,7 @@ public class T extends Thread{
         // Checks if the thread is the first one 
         if(!load.isEmpty()){
 
+            //If the thread is the first one, loads up the messages in the cycle 
             for(int i = 0; i < load.size(); i ++){
 
                 try {
@@ -128,7 +129,7 @@ public class T extends Thread{
                 
             }
 
-
+            //MANDAR MENSAJE FIN AL FINAL
             
             Mensaje end = new Mensaje(); //Sends the last message who kills the existing threads 
 
@@ -145,57 +146,154 @@ public class T extends Thread{
                 e.printStackTrace();
             }
 
+            
+
             if(insertWay){
                 rightBuffer.insertarActivo(end);
+
+
+                String msg = "Thread:  %d - escribio FIN : %s - forma activa";
+                System.out.println("");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println(String.format(msg,this.id, end.darMensaje())); // thread shows on the console the type of insertion
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("");
+
             }
             else{
                 rightBuffer.insertarPasivo(end);
+
+                String msg = "Thread:  %d - escribio FIN : %s - forma pasiva";
+                System.out.println("");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println(String.format(msg,this.id, end.darMensaje())); // thread shows on the console the type of insertion
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("");
             }
+
+
+
         }
 
 
-                    //If the thread isn't the first one || The thread is the last one 
+        //If the thread isn't the first one 
         Mensaje current; 
         boolean isLast = false; 
 
         while(true){
 
             if(extractWay){
+
+                try {
+
+                    sleep(delay); // thread performs the programmed delay
+                    System.out.println("Thread " + id + ":" +  " delayed" + " " + delay );
+    
+                } catch (InterruptedException e) {
+                    // Handles exception
+                    e.printStackTrace();
+                }
+
                 current = leftBuffer.extraerActivo();
-                isLast = (current.darMensaje().equals("FIN")) ? true : false; 
+
+                isLast = (current.darMensaje().equals("FIN")) ? true : false;
+
+                String msg = "Thread:  %d - recibio : %s - forma activa";
+                System.out.println("");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println(String.format(msg,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("");
+
+
 
                 if(insertWay){
                     //SIGN the message 
                     sign(current);
                     rightBuffer.insertarActivo(current);
+
+                    String msg3 = "Thread:  %d - escribio : %s - forma activa";
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg3,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
                    
                 }
                 else{
                     //SIGN the message 
                     sign(current);
                     rightBuffer.insertarPasivo(current);
+
+                    String msg3 = "Thread:  %d - escribio : %s - forma pasiva";
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg3,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
                    
                 }
 
-                if(isLast){break;}
+                if(isLast){
+                    
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("Thread " +  this.id + " " + "termino proceso");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
+
+                    break;
+                
+                }
             }
             else{
                 current = leftBuffer.extraerPasivo();
                 isLast = (current.darMensaje().equals("FIN")) ? true : false; 
 
 
+                String msg = "Thread:  %d - recibio : %s - forma pasiva";
+                System.out.println("");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println(String.format(msg,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("");
+
                 if(insertWay){
                     //SIGN the message 
                     sign(current);
                     rightBuffer.insertarActivo(current);
+
+                    String msg3 = "Thread:  %d - escribio : %s - forma activa";
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg3,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
                 }
                 else{
                     //SIGN the message 
                     sign(current);
                     rightBuffer.insertarPasivo(current);
+
+                    String msg3 = "Thread:  %d - escribio : %s - forma pasiva";
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println(String.format(msg3,this.id, current.darMensaje())); // thread shows on the console the type of insertion
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
                 }
 
-                if(isLast){break;}
+                if(isLast){
+
+                    System.out.println("");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("Thread " +  this.id + " " + "termino proceso");
+                    System.out.println("/////////////////////////////////////////////////////////////////////////");
+                    System.out.println("");
+
+
+                    break;
+                }
             }
         }
 

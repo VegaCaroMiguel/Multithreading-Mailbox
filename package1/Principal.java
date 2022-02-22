@@ -111,6 +111,9 @@ public class Principal{
 
         readFile(buzones, threads); 
 
+        //Sets the first thread with the load 
+        threads.get(0).setLoad(ms);
+
         //Creates the threads and start running them 
         for(int i = 0; i < threads.size(); i ++){ 
             threads.get(i).start(); 
