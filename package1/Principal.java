@@ -18,7 +18,7 @@ public class Principal{
 
     static int readFile(ArrayList<Buzon> pBuzones, ArrayList<T> pThreads){
         //Create a the .config file 
-        File file = new File("C:\\Users\\jm.vegac\\Multithreading-Mailbox\\Config\\Settings.txt");
+        File file = new File("/home/themike/Documents/2022-1/Multithreading-Mailbox/Config/Settings.txt");
 
         int sumaTamaños = 0; 
         try{
@@ -46,9 +46,8 @@ public class Principal{
 
                 boolean extractWay = Boolean.parseBoolean(infoThread.split(" ")[2]); 
 
-
                 boolean insertWay = Boolean.parseBoolean(infoThread.split(" ")[3]); 
-
+                
                 //Initializes threads with rightBuffers 
                 T thread = new T(id, delay, null, null, extractWay, insertWay); 
                 
@@ -110,18 +109,22 @@ public class Principal{
         //ArrayList containing the threads 
         ArrayList<T> threads = new ArrayList<T>(); 
 
-        readFile(buzones, threads); 
+        int sumaTamaños = readFile(buzones, threads); 
 
+        if(noMensajes <= sumaTamaños ){
+            //Creates the threads and start running them 
+
+            //Set the load of the system through the first Thread 
+            threads.get(0).setLoad(ms);
+
+            for(int i = 0; i < threads.size(); i ++){ 
+                threads.get(i).start(); 
+            }
+        }
+        else{
+
+            System.out.println("Error 404: El numero de mensajes excede la capacidad del sistema");
         
-
-        //Sets the first thread with the load 
-        threads.get(0).setLoad(ms);
-
-
-
-        //Creates the threads and start running them 
-        for(int i = 0; i < threads.size(); i ++){ 
-            threads.get(i).start(); 
         }
 
     }

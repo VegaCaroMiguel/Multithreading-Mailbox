@@ -25,7 +25,7 @@ public class Buzon {
     private int capacity; 
 
     //id of the Buffer
-    public String id; 
+    private String id; 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////                                                 CONSTRUCTOR                                                           /////
@@ -51,19 +51,17 @@ public class Buzon {
      * @param pMensaje
      */
     public synchronized void insertarActivo(Mensaje pMensaje){
+        while(true){
 
             while(buzz.size() != capacity){ //Checks if the buffer its full, and if it's not, inserts a message
-
-
                 buzz.add(pMensaje);
+            }
 
-
-                if(buzz.size() ==1){ //Notify the waiting Consumers that there are resources available 
-                    notify();
-                }
+            if(buzz.size() ==1){ //Notify the waiting Consumers that there are resources available 
+                notify();
             }
         }
-
+    }
 
     /**
      * Passive wait message Insertion 
@@ -92,24 +90,20 @@ public class Buzon {
      * @param pMensaje
      * @return The extrected message 
      */
-    public synchronized Mensaje extraerActivo(T pThread){
-        
+    public synchronized Mensaje extraerActivo(){
+        while(true){
 
-        while(buzz.size() == 0){ //Checks if the buffer its full, and if it's not, inserts a message
-            pThread.yield();
+            while(buzz.size()!= 0){ // If there are resoures available, extract's the message 
+                Mensaje aux = buzz.get(0);
+                buzz.remove(0);
 
+                if(buzz.size() == capacity-1){ 
+                    notify(); // If the buffer isn't full anymore, notify the waiting producers 
+                }
+
+                return aux; 
+            }
         }
-
-
-        Mensaje extracted = buzz.get(0);
-
-        
-         
-        if(buzz.size() ==1){ //Notify the waiting Consumers that there are resources available 
-            notify();
-        }
-
-        return extracted;    
     }
 
     /**
@@ -131,7 +125,7 @@ public class Buzon {
         buzz.remove(0);  //If the bufer isnt empty, extract the message 
 
         if(buzz.size() == capacity-1){ //Check if the buffer was full 
-            notify(); //If the buffer was full, notify the waiting producer 
+            notify(); //If the buffer was full, notify th   e waiting producer 
         }
 
         return aux; 
